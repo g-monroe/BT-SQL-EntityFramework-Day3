@@ -8,7 +8,7 @@
         public int YearOfAppearance { get; set; }
         public bool IsAlien { get; set; }
         public string OriginStory { get; set; }
-        public string Universe { get; set; }
-        public string[] Abilities { get; set; }
+        public int UniverseId { get; set; }
+        public string Abilities { get; set; }
     }
 }
