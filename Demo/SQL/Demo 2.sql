@@ -1,5 +1,5 @@
-INSERT INTO todos values(1, 'Do this', GETDATE(), 'Description', null, 0)
-INSERT INTO todos values(2, 'Do that', GETDATE(), 'Description', null, 0)
+INSERT INTO todos values('Do this', GETDATE(), 'Description', null, 0)
+INSERT INTO todos values('Do that', GETDATE(), 'Description', null, 0)
 
 select * from ToDos
 
