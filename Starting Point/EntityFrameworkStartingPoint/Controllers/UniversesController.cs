@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EntityFrameworkStartingPoint.Controllers.ResponseObjects;
+using EntityFrameworkStartingPoint.Data;
+using EntityFrameworkStartingPoint.Extensions;
 using EntityFrameworkStartingPoint.RequestObjects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebApiAssignment.Datastore.DataModels;
+using Microsoft.EntityFrameworkCore;
+//using WebApiAssignment.Datastore.DataModels;
 
 namespace EntityFrameworkStartingPoint.Controllers
 {
@@ -14,60 +17,49 @@ namespace EntityFrameworkStartingPoint.Controllers
     [ApiController]
     public class UniversesController : ControllerBase
     {
-        [HttpGet]
-        public UniverseListResponse GetUniverses()
+        private SuperheroesContext _context;
+        public UniversesController(SuperheroesContext ctx)
         {
-            var resp = new UniverseListResponse();
-            List<WebApiAssignment.Datastore.DataModels.Universe> universes = WebApiAssignment.Datastore.UniverseHandler.GetUniverses();
-            resp.TotalResults = universes.Count;
-            resp.Items = universes.Select(x => new UniverseListItem()
-            {
-                ParentCompany = x.ParentCompany,
-                UniverseId = x.Id,
-                UniverseName = x.UniverseName
-            }).ToList();
+            _context = ctx;
+        }
 
-            return resp;
+        [HttpGet]
+        public object GetUniverses()
+        {
+            //return _context.Users.Include(x => x.ToDoAssigneds).ThenInclude(x => x.ToDo);
+            return null;
         }
 
         [HttpGet("{id}")]
-        public UniverseListItem GetUniverse(int id)
+        public object GetUniverse(int id)
         {
-            var resp = new UniverseListResponse();
-            var universe = WebApiAssignment.Datastore.UniverseHandler.GetUniverse(id);
-
-            return new UniverseListItem()
-            {
-                ParentCompany = universe.ParentCompany,
-                UniverseId = universe.Id,
-                UniverseName = universe.UniverseName
-            };
+            //return _context.Users.Include(x => x.ToDoAssigneds).ThenInclude(x=> x.ToDo);
+            return null;
         }
 
         [HttpPut("{id}")]
-        public Universe UpdateUniverse([FromRoute] int id, UniverseAddRequest request)
+        public UniverseListItem UpdateUniverse([FromRoute] int id, UniverseAddRequest request)
         {
-            var universe = WebApiAssignment.Datastore.UniverseHandler.GetUniverse(id);
-            universe.UniverseName = request.UniverseName;
-            universe.ParentCompany = request.ParentCompany;
-            WebApiAssignment.Datastore.UniverseHandler.UpdateUniverse(universe);
-            return universe;
+            var universe = _context.Unvierses.Find(id);
+            universe = request.ToDbItem(universe);
+            _context.SaveChanges();
+            return universe.ToListItem();
         }
 
         [HttpPost]
-        public Universe AddUniverse(UniverseAddRequest request)
+        public UniverseListItem AddUniverse(UniverseAddRequest request)
         {
-            var universe = new Universe();
-            universe.UniverseName = request.UniverseName;
-            universe.ParentCompany = request.ParentCompany;
-            WebApiAssignment.Datastore.UniverseHandler.AddUniverse(universe);
-            return universe;
+            var universe = request.ToDbItem();
+            _context.Unvierses.Add(universe);
+            _context.SaveChanges();
+            return universe.ToListItem();
         }
 
         [HttpDelete]
         public void DeleteUniverses(int id)
         {
-            WebApiAssignment.Datastore.UniverseHandler.DeleteUniverse(id);
+            _context.Unvierses.Remove(_context.Unvierses.Find(id));
+            _context.SaveChanges();
         }
     }
 }

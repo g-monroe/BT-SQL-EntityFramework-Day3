@@ -3,14 +3,16 @@ using EntityFrameworkStartingPoint.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EntityFrameworkStartingPoint.Migrations
 {
     [DbContext(typeof(SuperheroesContext))]
-    partial class SuperheroesContextModelSnapshot : ModelSnapshot
+    [Migration("20190516185220_AddUniverses")]
+    partial class AddUniverses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,25 +37,6 @@ namespace EntityFrameworkStartingPoint.Migrations
                     b.ToTable("ToDos");
                 });
 
-            modelBuilder.Entity("EntityFrameworkStartingPoint.Data.ToDoAssignedUsers", b =>
-                {
-                    b.Property<int>("ToDoAssignedUsersId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ToDoId");
-
-                    b.Property<int>("UserId");
-
-                    b.HasKey("ToDoAssignedUsersId");
-
-                    b.HasIndex("ToDoId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("ToDoAssignedUsers");
-                });
-
             modelBuilder.Entity("EntityFrameworkStartingPoint.Data.Universe", b =>
                 {
                     b.Property<int>("UniverseId")
@@ -69,34 +52,6 @@ namespace EntityFrameworkStartingPoint.Migrations
                     b.HasKey("UniverseId");
 
                     b.ToTable("Unvierses");
-                });
-
-            modelBuilder.Entity("EntityFrameworkStartingPoint.Data.User", b =>
-                {
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("EntityFrameworkStartingPoint.Data.ToDoAssignedUsers", b =>
-                {
-                    b.HasOne("EntityFrameworkStartingPoint.Data.ToDo", "ToDo")
-                        .WithMany("AssignedUsers")
-                        .HasForeignKey("ToDoId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("EntityFrameworkStartingPoint.Data.User", "User")
-                        .WithMany("ToDoAssigneds")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

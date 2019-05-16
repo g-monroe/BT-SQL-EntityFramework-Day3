@@ -13,5 +13,7 @@ namespace EntityFrameworkStartingPoint.Data
         }
 
         public virtual DbSet<ToDo> ToDos { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Universe> Unvierses { get; set; }
     }
 }

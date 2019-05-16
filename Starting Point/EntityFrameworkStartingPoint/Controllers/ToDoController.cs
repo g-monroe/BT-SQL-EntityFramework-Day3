@@ -1,5 +1,7 @@
 ﻿using EntityFrameworkStartingPoint.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace EntityFrameworkStartingPoint.Controllers
 {
@@ -16,9 +18,19 @@ namespace EntityFrameworkStartingPoint.Controllers
         [HttpGet]
         public void GetTodos()
         {
-            var todo = _context.ToDos.Find(1);
-            _context.ToDos.Remove(todo);
-            _context.SaveChanges();
+
+            var td = new ToDo();
+            td.Title = "Do This";
+
+
+            //var dan = _context.Users.Find(1);
+            //var daric = _context.Users.Find(2);
+            //td.AssignedUsers = new System.Collections.Generic.List<ToDoAssignedUsers>();
+            //td.AssignedUsers.Add(new ToDoAssignedUsers() { User = dan });
+            //td.AssignedUsers.Add(new ToDoAssignedUsers() { User = daric });
+            //_context.ToDos.Add(td);
+            //_context.SaveChanges();
+
         }
     }
 }

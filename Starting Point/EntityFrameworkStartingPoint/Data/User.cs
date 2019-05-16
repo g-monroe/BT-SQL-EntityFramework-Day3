@@ -6,16 +6,14 @@ using System.Threading.Tasks;
 
 namespace EntityFrameworkStartingPoint.Data
 {
-    public class ToDo
+    public class User
     {
-        public int ToDoId { get; set; }
+        public int UserId { get; set; }
 
         [Required]
         [MaxLength(50)]
-        public string Title { get; set; }
-            
-        public string Description { get; set; }
+        public string Name { get; set; }
 
-        public List<ToDoAssignedUsers> AssignedUsers { get; set; }
+        public List<ToDoAssignedUsers> ToDoAssigneds { get; set; }
     }
 }
