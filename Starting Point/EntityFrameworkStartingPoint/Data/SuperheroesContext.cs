@@ -19,5 +19,6 @@ namespace EntityFrameworkStartingPoint.Data
         }
         public virtual DbSet<SuperHero> Heros { get; set; }
         public virtual DbSet<Universe> Universes { get; set; }
+        public virtual DbSet<Ability> Abilities { get; set; }
     }
 }

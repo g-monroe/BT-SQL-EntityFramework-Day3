@@ -4,14 +4,16 @@ using EntityFrameworkStartingPoint.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EntityFrameworkStartingPoint.Migrations
 {
     [DbContext(typeof(SuperheroesContext))]
-    partial class SuperheroesContextModelSnapshot : ModelSnapshot
+    [Migration("20190516212951_InitialMirgration9")]
+    partial class InitialMirgration9
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
